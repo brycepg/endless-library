@@ -67,17 +67,21 @@ class Searcher:
                 display_title = book.title + title_padding
             author_padding = ' ' * (self.max_author_length - len(book.author))
             display_author = book.author + author_padding
-            book.display_string = f"{display_title} / {display_author} / {book.size}"
-    
+            book_size_padding = " " * 3
+            display_book_size =   book.size + book_size_padding
+            display_languages = ','.join(book.languages)
+            book.display_string = f"{display_title} / {display_author} / {display_book_size} / {display_languages}"
+
     # allows user to select a book from a list of entries
     def interactive_search(self, anna_list):
+        book_size_padding = " " * 3
         self.menu_formatter(anna_list)
         if self.max_title_len < self.title_limit:
             title_padding = self.max_title_len - 5
         else:
             title_padding = self.max_title_len - 2
-        
-        print(f"[#]  Title {(title_padding) * ' '}/ Author {(self.max_author_length - 6) * ' '}/ Size")
+
+        print(f"[#]  Title {(title_padding) * ' '}/ Author {(self.max_author_length - 6) * ' '}/ Size {book_size_padding} / Languages")
         for i, book in enumerate(anna_list):
             if i < 9:
                 print(f"{[i+1]}  {book.display_string}")

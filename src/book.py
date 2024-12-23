@@ -36,10 +36,10 @@ class Book:
             author = book_html.find("div", class_="max-lg:line-clamp-[2] lg:truncate leading-[1.2] lg:leading-[1.35] max-lg:text-sm italic").string
             metadata = book_html.find("div", class_="line-clamp-[2] leading-[1.2] text-[10px] lg:text-xs text-gray-500").string
             split_metadata = metadata.split(",")
-            # There may be more than one command separated language option
+            # There may be more than one comma separated language option
             epub_index = _get_epub_index(split_metadata)
-            # If there is more than one language then this value will not be accurate
             self.language = split_metadata[0]
+            self.languages = split_metadata[:epub_index]
             self.size = split_metadata[epub_index + 2].strip()
             self.genre = split_metadata[epub_index + 3].split("(")[1].split(")")[0]
         if website == "profile":
